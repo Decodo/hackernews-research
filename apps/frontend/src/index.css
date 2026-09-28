@@ -1,0 +1,122 @@
+@import "tailwindcss";
+@variant dark (&:where(.dark, .dark *));
+
+  :root {
+  /* Hacker News-inspired light palette */
+  --background: #f6f6ef;
+  --foreground: #1a1814;
+  --card: #fbfaf5;
+  --card-foreground: #1a1814;
+  --popover: #fffdf7;
+  --popover-foreground: #1a1814;
+  --primary: #ff6600;
+  --primary-foreground: #1a120b;
+  --secondary: #ecebe2;
+  --secondary-foreground: #2b2721;
+  --muted: #ecebe2;
+  --muted-foreground: #777168;
+  --accent: #e6e3d8;
+  --accent-foreground: #1a1814;
+  --destructive: #b42318;
+  --border: #d7d2c5;
+  --input: #c9c3b5;
+  --ring: #ff6600;
+  --sidebar: #efeee6;
+  --sidebar-foreground: #1a1814;
+  --sidebar-primary: #ff6600;
+  --sidebar-primary-foreground: #1a120b;
+  --sidebar-accent: #e4e1d6;
+  --sidebar-accent-foreground: #c94f00;
+  --sidebar-border: #d0cabd;
+  --sidebar-ring: #ff6600;
+  --success: #4f7b43;
+  --success-soft: #e5f0df;
+  --topic-bg: rgba(255, 102, 0, 0.12);
+  --topic-fg: #d95700;
+  --radius: 0.3rem;
+}
+
+.dark {
+  /* Hacker News orange translated to a warm dark interface */
+  --background: #11100d;
+  --foreground: #f1ede4;
+  --card: #181713;
+  --card-foreground: #f1ede4;
+  --popover: #201e19;
+  --popover-foreground: #f1ede4;
+  --primary: #ff6600;
+  --primary-foreground: #160f09;
+  --secondary: #211f1a;
+  --secondary-foreground: #eee8dc;
+  --muted: #211f1a;
+  --muted-foreground: #a29a8e;
+  --accent: #2a261f;
+  --accent-foreground: #f5eee2;
+  --destructive: #e36b5d;
+  --border: #3b352b;
+  --input: #51483a;
+  --ring: #ff6600;
+  --sidebar: #15140f;
+  --sidebar-foreground: #eee8dc;
+  --sidebar-primary: #ff6600;
+  --sidebar-primary-foreground: #160f09;
+  --sidebar-accent: #28241d;
+  --sidebar-accent-foreground: #ff8a42;
+  --sidebar-border: #383229;
+  --sidebar-ring: #ff6600;
+  --success: #8caf79;
+  --success-soft: rgba(140, 175, 121, 0.14);
+  --topic-bg: rgba(255, 102, 0, 0.14);
+  --topic-fg: #ff8a42;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+::selection {
+  background: rgba(255, 102, 0, 0.28);
+}
+
+a {
+  text-underline-offset: 3px;
+}
