@@ -11,8 +11,8 @@
     "dev": "bun run --cwd apps/shared build && bunx concurrently \"bun run --cwd apps/backend start:dev\" \"bun run --cwd apps/frontend dev\"",
     "build": "bun run --cwd apps/shared build && bun run --cwd apps/backend build && bun run --cwd apps/frontend build",
     "start": "bunx concurrently \"bun run --cwd apps/backend start:prod\" \"bun run --cwd apps/frontend preview\"",
-    "db:up": "docker-compose up -d",
-    "db:down": "docker-compose down",
+    "db:up": "if command -v podman >/dev/null 2>&1 && podman compose version >/dev/null 2>&1; then podman compose up -d; elif command -v docker >/dev/null 2>&1 && docker compose version >/dev/null 2>&1; then docker compose up -d; else echo 'No supported Compose setup found. Install Podman with podman-compose or Docker with Compose.'; exit 1; fi",
+    "db:down": "if command -v podman >/dev/null 2>&1 && podman compose version >/dev/null 2>&1; then podman compose down; elif command -v docker >/dev/null 2>&1 && docker compose version >/dev/null 2>&1; then docker compose down; else echo 'No supported Compose setup found. Install Podman with podman-compose or Docker with Compose.'; exit 1; fi",
     "format": "bun run --cwd apps/backend format && bun run --cwd apps/frontend format"
   },
   "devDependencies": {
