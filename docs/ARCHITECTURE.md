@@ -1,6 +1,6 @@
 # Hacker News Intelligence architecture
 
-The MVP uses Hacker News as the discovery and discussion layer, Decodo Web Scraping API as the external-web enrichment layer, and an LLM in three roles: low-cost triage, isolated per-story analysis, and concise cross-story synthesis.
+The current version uses Hacker News as the discovery and discussion layer, Decodo Web Scraping API as the external-web enrichment layer, and an LLM in three roles: low-cost triage, isolated per-story analysis, and concise cross-story synthesis.
 
 ## Pipeline
 
@@ -23,7 +23,7 @@ A normal Quick run therefore uses one triage call, up to five compact story-anal
 
 ## Research depth
 
-The current MVP defaults are intentionally easy to tune:
+The current version defaults are intentionally easy to tune:
 
 | Depth | Candidate stories | Selected leads | External pages | Comments per selected story | Markdown per usable page |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -61,7 +61,7 @@ For discussion-derived facts, the isolated story pass records the exact supporti
 
 Temporal consistency is guarded at both story-analysis and final-synthesis stages. Generated calendar years are retained only when the same year appears in the supporting evidence; unsupported editorial date-stamping such as an invented year in a content-opportunity title is removed rather than replaced with another assumed year.
 
-The MVP does not make longitudinal claims such as a topic growing or declining unless future historical comparison logic supplies that evidence.
+The current version doesn't make longitudinal claims such as a topic growing or declining unless future historical comparison logic supplies that evidence.
 
 ## Failure handling
 
