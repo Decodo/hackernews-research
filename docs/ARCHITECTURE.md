@@ -71,7 +71,7 @@ A failed individual story-analysis call falls back to a minimal evidence-safe re
 
 ## Local services
 
-Docker Compose runs MongoDB only. Hacker News retrieval uses the public API directly. Decodo and LLM credentials can be saved from the Settings UI; saved credentials override the corresponding environment variables at runtime, while `.env` remains the fallback/bootstrap path. Secret fields are excluded from normal Mongoose selections and are never returned by the Settings API. Settings also exposes backend connection tests for Anthropic, OpenAI, Gemini, and Decodo (the Decodo test performs a small `example.com` scrape).
+Compose runs MongoDB only. Hacker News retrieval uses the public API directly. Decodo and LLM credentials can be saved from the Settings UI; saved credentials override the corresponding environment variables at runtime, while `.env` remains the fallback/bootstrap path. Secret fields are excluded from normal Mongoose selections and are never returned by the Settings API. Settings also exposes backend connection tests for Anthropic, OpenAI, Gemini, and Decodo (the Decodo test performs a small `example.com` scrape).
 
 
 ## UI theme
