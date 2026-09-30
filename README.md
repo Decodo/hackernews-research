@@ -98,7 +98,7 @@ The report keeps source links and evidence labels attached to findings so a read
 <p align="center">
   <img src="https://github.com/user-attachments/assets/ba855a8c-84c9-4cb4-9d76-8f3b5bae1d1b" alt="Hacker News Research report screen" width="800" />
 </p>
-<p align="center"><sub>Report of a Standard depth run of Front page, New HN submissions, Ask HN, and Show HN sources.</sub></p>
+<p align="center"><sub>Report of a Standard depth research of Front page, New HN submissions, Ask HN, and Show HN sources.</sub></p>
 
 <br>
 
