@@ -22,6 +22,7 @@ export class DecodoService {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         Authorization: `Basic ${config.decodoAuthToken}`,
+        'x-integration': 'oss-hackernews-research',
       },
       body: JSON.stringify({
         target: 'universal',
