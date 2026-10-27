@@ -1,16 +1,16 @@
 # Hacker News Intelligence architecture
 
-The current version uses Hacker News as the discovery and discussion layer, Decodo Web Scraping API as the external-web enrichment layer, and an LLM in three roles: low-cost triage, isolated per-story analysis, and concise cross-story synthesis.
+The current version uses Hacker News as the discovery and discussion layer, Decodo Web Data API as the external-web enrichment layer, and an LLM in three roles: low-cost triage, isolated per-story analysis, and concise cross-story synthesis.
 
 ## Pipeline
 
 1. The frontend submits a set of Hacker News sources (`top`, `new`, `ask`, `show`) and a research depth (`quick`, `standard`, `deep`). In the UI, `new` is described as “New HN submissions” to make clear that submission recency does not imply publication recency.
-2. `HackerNewsService` retrieves story IDs and item metadata from the free official Hacker News API. The Web Scraping API is not used to reproduce data already available from the official API.
+2. `HackerNewsService` retrieves story IDs and item metadata from the free official Hacker News API. The Web Data API is not used to reproduce data already available from the official API.
 3. Obvious unusable items are removed and duplicate stories across HN surfaces are merged.
 4. A lightweight LLM triage pass sees only HN metadata and submission text. It selects the leads most likely to reveal meaningful developer interests. Comments are not fetched before triage. Every selected lead with an external URL is then treated as an enrichment target. This is a deterministic pipeline rule; the triage LLM does not decide whether a selected URL should be followed.
 5. Research depth controls the candidate pool, shortlist size, comment depth, Markdown budget, and LLM output budgets. External-page attempts track the shortlist: every selected lead with an external URL is attempted.
 6. HN comments are fetched only for shortlisted leads.
-7. Every shortlisted external URL is sent to Decodo Web Scraping API. Requests use `proxy_pool: "premium"`, `headless: "html"`, and `markdown: true`. Failed external retrieval is non-fatal. Scraping and story analysis are pipelined: as soon as one story's external-page attempt finishes, that story can enter analysis while other pages are still being fetched. Scraping and analysis keep separate concurrency caps (4 and the depth-specific story-analysis limit), so one slow page no longer blocks all analysis.
+7. Every shortlisted external URL is sent to Decodo Web Data API. Requests use `proxy_pool: "premium"`, `headless: "html"`, and `markdown: true`. Failed external retrieval is non-fatal. Scraping and story analysis are pipelined: as soon as one story's external-page attempt finishes, that story can enter analysis while other pages are still being fetched. Scraping and analysis keep separate concurrency caps (4 and the depth-specific story-analysis limit), so one slow page no longer blocks all analysis.
 8. Retrieval success is separated from evidence usability. A deterministic pre-check hard-rejects only clear failures such as very thin responses, access challenges, login/error pages, and generic Notion workspace shells. Ambiguous JavaScript/app-shell markers are flagged as suspicious rather than rejected; the already-scheduled isolated story-analysis call inspects the retrieved Markdown and makes the final semantic usability decision. Retrieved-but-unusable Markdown is not supplied as source evidence to downstream synthesis.
 9. Large usable Markdown pages are compacted before LLM analysis. The tool keeps the opening section, page headings, and ending section instead of sending the complete page blindly.
 10. Each shortlisted story is analyzed in its own LLM call as soon as its own scrape state is known. This isolation prevents details from unrelated stories leaking into one another and keeps the linked source distinct from HN reaction.

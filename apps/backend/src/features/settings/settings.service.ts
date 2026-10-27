@@ -84,7 +84,7 @@ export class SettingsService {
       // Credentials saved in Settings override environment variables.
       decodoAuthToken: doc?.decodoAuthToken || envDecodo.authToken || '',
       decodoScraperEndpoint:
-        envDecodo.scraperEndpoint || 'https://scraper-api.decodo.com/v2/scrape',
+        envDecodo.scraperEndpoint || 'https://data.decodo.com/v1/scrape',
       anthropicApiKey: doc?.anthropicApiKey || envLlm.anthropicApiKey || '',
       openaiApiKey: doc?.openaiApiKey || envLlm.openaiApiKey || '',
       geminiApiKey: doc?.geminiApiKey || envLlm.geminiApiKey || '',
@@ -235,7 +235,7 @@ export class SettingsService {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
-          Authorization: `Basic ${credential}`,
+          Authorization: `Bearer ${credential}`,
         },
         body: JSON.stringify({
           target: 'universal',
@@ -248,7 +248,7 @@ export class SettingsService {
       return this.testResultFromResponse(
         input.target,
         response,
-        'Decodo Web Scraping API credential is valid.',
+        'Decodo Web Data API key is valid.',
       );
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err);

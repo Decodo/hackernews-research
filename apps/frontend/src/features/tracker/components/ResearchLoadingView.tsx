@@ -11,7 +11,7 @@ const steps: Array<{
   { stage: 'collecting', icon: Search, title: 'Collecting Hacker News stories', detail: 'Reading current story metadata from the official Hacker News API' },
   { stage: 'triaging', icon: FileSearch, title: 'Selecting research leads', detail: 'Using a lightweight triage pass to rank stories by developer relevance, novelty, and research value' },
   { stage: 'discussing', icon: MessageSquareText, title: 'Reading selected discussions', detail: 'Collecting representative HN comments only for the shortlisted research leads' },
-  { stage: 'scraping', icon: Database, title: 'Scraping linked pages', detail: 'Attempting every shortlisted external page as Markdown through Decodo Web Scraping API' },
+  { stage: 'scraping', icon: Database, title: 'Scraping linked pages', detail: 'Attempting every shortlisted external page as Markdown through Decodo Web Data API' },
   { stage: 'analyzing', icon: Sparkles, title: 'Analyzing and synthesizing', detail: 'Analyzing each lead in isolation, then synthesizing concise evidence-scoped findings across the run' },
 ];
 

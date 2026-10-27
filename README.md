@@ -1,7 +1,7 @@
 # Hacker News Research
 
 <p align="center">
-  <a href="https://dashboard.decodo.com/scrapers/pricing?utm_source=github&utm_medium=social&utm_campaign=hackernews-research"><img src="https://github.com/user-attachments/assets/13b08523-32b0-4c85-8e99-580d7c2a9055" alt="Decodo Web Scraping API" /></a>
+  <a href="https://dashboard.decodo.com/web-data/pricing?utm_source=github&utm_medium=social&utm_campaign=hackernews-research"><img src="https://github.com/user-attachments/assets/233d4e4e-8f64-4179-a32e-a4b9cf78137f" alt="Decodo Web Data API" /></a>
 </p>
 
 **Hacker News Research** is an open-source AI research agent for Hacker News trends. It picks promising HN submissions, follows their external links, reads the linked pages as Markdown, and analyzes them together with the HN discussion to show what developers are building, struggling with, and finding interesting. You choose the research depth.
@@ -47,13 +47,13 @@ Hacker News Research works as a topic research tool and trend analysis tool for:
 2. **Choose research depth**. Quick, Standard, and Deep control the research budget.
 3. **Collect Hacker News data**. The backend uses the official Hacker News API to collect candidate submissions, metadata, and comment threads.
 4. **Triage promising stories**. A lower-cost LLM pass selects the stories most worth deeper investigation.
-5. **Retrieve selected linked pages**. External URLs are collected with [Decodo Web Scraping API](https://decodo.com/scraping/web) and returned as Markdown.
+5. **Retrieve selected linked pages**. External URLs are collected with [Decodo Web Data API](https://decodo.com/web-data-api) and returned as Markdown.
 6. **Analyze each selected story independently**. The research model combines the HN submission, discussion, and usable linked-page content for that story.
 7. **Validate recurring themes**. Candidate themes must be supported by multiple independently analyzed stories with the same concrete topic.
 8. **Synthesize the report**. The final pass produces the summary, technologies and tools, developer problems, content opportunities, and research leads.
 9. **Store and export the run**. MongoDB stores completed reports in History, and reports can be exported as Markdown or JSON.
 
-The Hacker News API supplies HN-native data. The Web Scraping API is used only for external pages linked by selected submissions.
+The Hacker News API supplies HN-native data. The Web Data API is used only for external pages linked by selected submissions.
 
 ## Example report
 
@@ -131,7 +131,7 @@ These are research budgets, not fixed quotas. The exact shortlist, linked-page c
 
 ## Analyze the articles Hacker News links to
 
-For selected stories with external URLs, Hacker News Research sends the linked pages to [Decodo Web Scraping API](https://decodo.com/scraping/web) and requests Markdown for LLM analysis.
+For selected stories with external URLs, Hacker News Research sends the linked pages to [Decodo Web Data API](https://decodo.com/web-data-api) and requests Markdown for LLM analysis.
 
 The research engine distinguishes retrieval success from usable evidence. An external request can be:
 
@@ -208,7 +208,7 @@ Before installing the project, make sure you have:
 
 - [Bun](https://bun.sh) 1.2.5 or newer
 - A container runtime with Compose support, such as [Podman](https://podman.io/) or [Docker](https://docker.com/)
-- A Decodo Web Scraping API Basic Auth token – [create a Decodo account](https://dashboard.decodo.com/register?page=scrapers/pricing)
+- A Decodo Web Data API key – [create a Decodo account](https://dashboard.decodo.com/register)
 - At least one supported LLM provider API key:
   - Anthropic
   - OpenAI
@@ -234,7 +234,7 @@ bun install
 cp .env.example .env
 ```
 
-Add your Decodo token and at least one supported LLM API key. You can also configure or override credentials later from **Settings**.
+Add your Decodo Web Data API key and at least one supported LLM API key. You can also configure or override credentials later from **Settings**.
 
 ### 3. Start MongoDB
 
@@ -284,7 +284,7 @@ The **Settings** page can:
 - choose the active LLM provider
 - set an optional model override
 - save Anthropic, OpenAI, and Gemini API keys
-- save the Decodo Web Scraping API Basic Auth token
+- save the Decodo Web Data API Basic Auth token
 - test provider-specific connections
 - clear a saved credential and fall back to `.env`
 
@@ -306,10 +306,10 @@ PUBLIC_FRONTEND_URL=http://localhost:5274
 MONGO_PORT=27018
 MONGODB_URI=mongodb://localhost:27018/hn-intelligence
 
-# Decodo Web Scraping API
-# Paste the Basic Auth token only, without the word "Basic".
+# Decodo Web Data API
+# Paste your Web Data API key only, without the "Bearer" prefix.
 DECODO_AUTH_TOKEN=
-DECODO_SCRAPER_ENDPOINT=https://scraper-api.decodo.com/v2/scrape
+DECODO_SCRAPER_ENDPOINT=https://data.decodo.com/v1/scrape
 
 # LLM provider: claude | openai | gemini
 LLM_PROVIDER=claude
@@ -338,7 +338,7 @@ Files beginning with a dot may be hidden by default. If you don't see `.env` in 
 | `PUBLIC_FRONTEND_URL` | Frontend URL used by the application |
 | `MONGO_PORT` | Host port mapped to the MongoDB container |
 | `MONGODB_URI` | MongoDB connection string |
-| `DECODO_AUTH_TOKEN` | Decodo Web Scraping API Basic Auth token, without the `Basic` prefix |
+| `DECODO_AUTH_TOKEN` | Decodo Web Data API key, without the `Bearer` prefix |
 | `DECODO_SCRAPER_ENDPOINT` | Decodo scraping endpoint. The included default is normally sufficient |
 | `LLM_PROVIDER` | LLM provider: `claude`, `openai`, or `gemini` |
 | `LLM_MODEL` | Optional main-model override |
@@ -413,11 +413,11 @@ Research depth controls the size of the candidate pool and the amount of deeper 
 
 ### Does Hacker News Research use the official Hacker News API?
 
-Yes. Hacker News Research uses the official Hacker News API for HN submissions, metadata, and comment trees. It doesn't depend on Algolia's HN Search for its research flow. For selected submissions with external URLs, it adds linked-page content retrieved through Decodo [Web Scraping API](https://decodo.com/scraping/web) before analysis.
+Yes. Hacker News Research uses the official Hacker News API for HN submissions, metadata, and comment trees. It doesn't depend on Algolia's HN Search for its research flow. For selected submissions with external URLs, it adds linked-page content retrieved through Decodo [Web Data API](https://decodo.com/web-data-api) before analysis.
 
 ### Is this a Hacker News scraper?
 
-The tool doesn't scrape Hacker News itself for its core HN data; it uses the official Hacker News API. Web scraping is used as the enrichment layer for external pages linked by selected HN submissions. Those pages are retrieved through Decodo Web Scraping API and analyzed alongside the HN submission and discussion.
+The tool doesn't scrape Hacker News itself for its core HN data; it uses the official Hacker News API. Web scraping is used as the enrichment layer for external pages linked by selected HN submissions. Those pages are retrieved through Decodo Web Data API and analyzed alongside the HN submission and discussion.
 
 ### How is this different from Hacker News Search or a Hacker News digest?
 
@@ -431,7 +431,7 @@ The application includes provider strategies for Anthropic Claude, OpenAI, and G
 
 There is no fixed run price because cost depends on the research depth, number and size of linked pages, selected LLM provider, model pricing, and token usage. The report records LLM call and token counts so you can audit actual usage. Quick generally uses less than Standard, while Deep uses the most.
 
-### What happens if Decodo Web Scraping API is unavailable?
+### What happens if Decodo Web Data API is unavailable?
 
 If individual linked pages fail, Hacker News Research continues with the evidence that remains. If all requested external pages fail because Decodo authentication is unavailable, the report still completes from HN submissions and comments but displays a prominent enrichment warning and downgrades evidence labels accordingly.
 
@@ -450,7 +450,7 @@ Yes. Hacker News Research is designed to run locally or on an always-on host wit
 | Frontend | React, TypeScript, TanStack Router, TanStack Query, Tailwind CSS, Radix UI, Rsbuild |
 | Backend | NestJS, TypeScript, MongoDB, Mongoose |
 | Hacker News data | Official Hacker News API |
-| Linked-page retrieval | Decodo Web Scraping API |
+| Linked-page retrieval | Decodo Web Data API |
 | LLMs | Anthropic Claude, OpenAI, Google Gemini |
 | Runtime | Bun |
 | Local services | Compose, MongoDB |
@@ -460,7 +460,7 @@ Yes. Hacker News Research is designed to run locally or on an always-on host wit
 ```text
 apps/
   backend/src/features/
-    decodo/             # Decodo Web Scraping API integration
+    decodo/             # Decodo Web Data API integration
     hacker-news/        # Hacker News collection and comment retrieval
     research/           # Triage, story analysis, synthesis, and reporting
     monitors/           # Saved schedules and recurring execution
@@ -497,11 +497,10 @@ docs/
 - [Decodo GitHub Research](https://github.com/Decodo/github-research)
 - [Decodo Forum Scraper](https://github.com/Decodo/Forum-scraper)
 - [Decodo Stack Overflow Trends Monitor](https://github.com/Decodo/stackoverflow-trends-monitor)
-- [Decodo Web Scraping API](https://github.com/Decodo/Web-Scraping-API)
 - [Decodo SDK for TypeScript](https://github.com/Decodo/sdk-ts)
 - [Decodo MCP Server](https://github.com/Decodo/mcp-server)
 
-For Web Scraping API targets, parameters, and request behavior, see the [Decodo Web Scraping API documentation](https://help.decodo.com/docs/web-scraping-api-introduction).
+For Web Data API targets, parameters, and request behavior, see the [Decodo Web Data API documentation](https://help.decodo.com/docs/web-data-api-introduction).
 
 ## License
 

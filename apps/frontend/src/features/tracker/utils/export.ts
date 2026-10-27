@@ -98,7 +98,7 @@ export const exportAsMarkdown = (result: ResearchResult) => {
     '',
     ...(sourceEnrichmentWarning?.code === 'decodo-authentication-failed'
       ? [
-          `> **Warning — Decodo Web Scraping API enrichment unavailable:** All ${sourceEnrichmentWarning.requestedPages} linked-page request${sourceEnrichmentWarning.requestedPages === 1 ? '' : 's'} failed Decodo authentication. The report still completed, but no external pages were analyzed, so findings use Hacker News submission and comment evidence only. Check Decodo credentials in Settings.`,
+          `> **Warning — Decodo Web Data API enrichment unavailable:** All ${sourceEnrichmentWarning.requestedPages} linked-page request${sourceEnrichmentWarning.requestedPages === 1 ? '' : 's'} failed Decodo authentication. The report still completed, but no external pages were analyzed, so findings use Hacker News submission and comment evidence only. Check Decodo credentials in Settings.`,
           '',
         ]
       : []),

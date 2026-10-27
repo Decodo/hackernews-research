@@ -117,7 +117,7 @@ function TrackerPage() {
                   ? 'openai-credentials'
                   : /GEMINI_API_KEY/i.test(errorMessage)
                     ? 'gemini-credentials'
-                    : /DECODO_AUTH_TOKEN|Decodo Web Scraping API/i.test(errorMessage)
+                    : /DECODO_AUTH_TOKEN|Decodo Web Data API/i.test(errorMessage)
                       ? 'decodo-credentials'
                       : undefined;
               return (

@@ -276,7 +276,7 @@ function SettingsPage() {
             <div className="flex items-start gap-2 rounded-md border border-yellow-300 bg-yellow-50 px-3 py-2.5 text-sm text-yellow-800 dark:border-yellow-800 dark:bg-yellow-950/30 dark:text-yellow-400">
               <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
               <span>
-                Decodo Web Scraping API is not configured. Add a Basic Auth token below to enable
+                Decodo Web Data API is not configured. Add a Web Data API key below to enable
                 linked-page enrichment.
               </span>
             </div>
@@ -413,8 +413,8 @@ function SettingsPage() {
           />
           <CredentialRow
             id="decodo-credentials"
-            label="Decodo Web Scraping API Basic Auth token"
-            description="Paste the Basic Auth token only, without the word “Basic”. Used for linked-page Markdown enrichment."
+            label="Decodo Web Data API key"
+            description="Paste your API key only, without the “Bearer” prefix. Used for linked-page Markdown enrichment."
             target="decodo"
             value={decodoAuthToken}
             onChange={setDecodoAuthToken}
