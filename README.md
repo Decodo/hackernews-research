@@ -284,7 +284,7 @@ The **Settings** page can:
 - choose the active LLM provider
 - set an optional model override
 - save Anthropic, OpenAI, and Gemini API keys
-- save the Decodo Web Data API Basic Auth token
+- save the Decodo Web Data API key
 - test provider-specific connections
 - clear a saved credential and fall back to `.env`
 
