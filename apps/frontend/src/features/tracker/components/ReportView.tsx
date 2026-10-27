@@ -119,7 +119,7 @@ export const ReportView = ({ result }: { result: ResearchResult }) => {
           <div className="flex items-start gap-3">
             <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-destructive" />
             <div>
-              <p className="text-sm font-semibold text-destructive">Decodo Web Scraping API enrichment unavailable</p>
+              <p className="text-sm font-semibold text-destructive">Decodo Web Data API enrichment unavailable</p>
               <p className="mt-1 text-xs leading-5 text-muted-foreground">
                 All {sourceEnrichmentWarning.requestedPages} linked-page request
                 {sourceEnrichmentWarning.requestedPages === 1 ? '' : 's'} failed Decodo authentication. The report still completed, but no external pages were analyzed, so findings use Hacker News submission and comment evidence only.{' '}

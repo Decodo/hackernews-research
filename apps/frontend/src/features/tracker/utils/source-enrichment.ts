@@ -2,7 +2,7 @@ import type { ResearchResult, SourceEnrichmentWarning } from '../tracker.types';
 
 const isDecodoAuthenticationError = (message?: string) => {
   if (!message) return false;
-  return /(DECODO_AUTH_TOKEN must be configured|Web Scraping API returned\s+(401|403)\b|incorrect username or password|unauthori[sz]ed|forbidden|invalid[^\n]*(credential|token)|authentication[^\n]*(failed|error))/i.test(
+  return /(DECODO_AUTH_TOKEN must be configured|Web Data API returned\s+(401|403)\b|incorrect username or password|unauthori[sz]ed|forbidden|invalid[^\n]*(credential|token|api[ -]?key)|authentication[^\n]*(failed|error))/i.test(
     message,
   );
 };

@@ -30,7 +30,7 @@ export class ConfigService {
   get decodo() {
     return {
       authToken: this.configService.get<string>('DECODO_AUTH_TOKEN', ''),
-      scraperEndpoint: this.configService.get<string>('DECODO_SCRAPER_ENDPOINT', 'https://scraper-api.decodo.com/v2/scrape'),
+      scraperEndpoint: this.configService.get<string>('DECODO_SCRAPER_ENDPOINT', 'https://data.decodo.com/v1/scrape'),
     };
   }
 

@@ -21,7 +21,7 @@ export class DecodoService {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        Authorization: `Basic ${config.decodoAuthToken}`,
+        Authorization: `Bearer ${config.decodoAuthToken}`,
         'x-integration': 'oss-hackernews-research',
       },
       body: JSON.stringify({
@@ -36,7 +36,7 @@ export class DecodoService {
     const text = await response.text();
     if (!response.ok) {
       throw new ServiceUnavailableException(
-        `Decodo Web Scraping API returned ${response.status}: ${text.slice(0, 300)}`,
+        `Decodo Web Data API returned ${response.status}: ${text.slice(0, 300)}`,
       );
     }
 
@@ -52,7 +52,7 @@ export class DecodoService {
       throw new ServiceUnavailableException('Decodo response did not contain Markdown content.');
     }
 
-    this.logger.log(`Scraped ${url} as Markdown via Web Scraping API · ${markdown.length.toLocaleString()} chars`);
+    this.logger.log(`Scraped ${url} as Markdown via Web Data API · ${markdown.length.toLocaleString()} chars`);
     return markdown;
   }
 
