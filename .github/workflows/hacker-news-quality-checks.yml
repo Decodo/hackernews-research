@@ -1,0 +1,32 @@
+name: Hacker News research quality checks
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/backend/**'
+      - '.github/workflows/hacker-news-quality-checks.yml'
+  pull_request:
+    paths:
+      - 'apps/backend/**'
+      - '.github/workflows/hacker-news-quality-checks.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  research-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.2.5
+      - run: bun install --frozen-lockfile
+      - name: Build shared workspace
+        run: bun run --cwd apps/shared build
+      - name: Typecheck backend
+        run: bunx tsc --noEmit -p apps/backend/tsconfig.json
+      - name: Run backend tests
+        run: bun run --cwd apps/backend test --runInBand

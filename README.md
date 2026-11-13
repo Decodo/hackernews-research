@@ -46,11 +46,11 @@ Hacker News Research works as a topic research tool and trend analysis tool for:
 1. **Choose HN sources**. Select Front page, New HN submissions, Ask HN, Show HN, or a combination.
 2. **Choose research depth**. Quick, Standard, and Deep control the research budget.
 3. **Collect Hacker News data**. The backend uses the official Hacker News API to collect candidate submissions, metadata, and comment threads.
-4. **Triage promising stories**. A lower-cost LLM pass selects the stories most worth deeper investigation.
+4. **Triage promising stories**. Lower-cost LLM passes evaluate smaller batches of candidates, then assemble one global shortlist without per-feed quotas.
 5. **Retrieve selected linked pages**. External URLs are collected with [Decodo Web Data API](https://decodo.com/web-data-api) and returned as Markdown.
 6. **Analyze each selected story independently**. The research model combines the HN submission, discussion, and usable linked-page content for that story.
 7. **Validate recurring themes**. Candidate themes must be supported by multiple independently analyzed stories with the same concrete topic.
-8. **Synthesize the report**. The final pass produces the summary, technologies and tools, developer problems, content opportunities, and research leads.
+8. **Synthesize the report**. Findings are checked against their source, discussion, or submission evidence, including grounded content ideas. A separate, evidence-checked editorial pass writes a concise research summary, with a safe fallback if validation fails.
 9. **Store and export the run**. MongoDB stores completed reports in History, and reports can be exported as Markdown or JSON.
 
 The Hacker News API supplies HN-native data. The Web Data API is used only for external pages linked by selected submissions.
@@ -119,7 +119,7 @@ Each completed report shows **source contribution**, so you can see how many can
 
 ## Choose your research depth
 
-Research depth controls how broadly Hacker News Research scans and how many promising stories it is willing to investigate.
+Research depth controls how broadly Hacker News Research scans and how many promising stories it is willing to investigate. Candidates are reviewed in smaller triage batches (25 per batch in Deep mode) before a global shortlist is selected.
 
 | Depth | Candidate pool | Typical investigated stories | Relative API / LLM usage | Best for |
 | --- | ---: | ---: | --- | --- |
@@ -378,7 +378,11 @@ Hacker News Research separates deterministic collection and provenance from LLM 
 - **External retrieval success isn't treated as evidence by itself**. Retrieved content must still be usable and relevant to the linked story.
 - **Story analysis is isolated**. Each selected story is analyzed independently before final synthesis.
 - **Themes require multiple stories**. A recurring theme needs at least two independently analyzed stories sharing the same concrete topic.
-- **Generic topic labels are rejected**. Shared implementation technology alone doesn't make unrelated stories one theme.
+- **Generic topic labels are rejected**. Shared implementation technology alone doesn't make unrelated stories one theme. Proposed keys must match each actual story subject; repeated issue labels alone cannot establish a theme.
+- **Limited-evidence leads are budgeted**. Weak, discussion-free posts cannot crowd out better-supported investigations, while early discoveries remain eligible.
+- **Content opportunities need concrete support**. The engine rejects unsupported ideas, recovers specific problems/questions from original evidence when possible, and stores analysis excerpts for review.
+- **Attribution is checked**. The backend distinguishes source claims, one person's comment, and HN submissions, and does not promote weak self-authored claims as independent developer findings.
+- **Research summaries are evidence-checked**. A short editorial paragraph is validated against supporting excerpts; an invalid output falls back to a conservative summary.
 - **Evidence labels are derived from provenance**. The report distinguishes source-backed, discussion-backed, and HN-submission evidence.
 - **Unsupported broad claims are guarded**. Deterministic validation catches unsupported quantifiers before report output.
 - **Generated years aren't assumed**. A calendar year is kept only when supporting evidence establishes it.

@@ -289,6 +289,11 @@ export const ReportView = ({ result }: { result: ResearchResult }) => {
                   <Sparkles className="mb-2 h-4 w-4 text-primary" />
                   <p className="text-sm font-semibold">{item.title}</p>
                   <p className="mt-1.5 text-sm leading-5 text-muted-foreground">{item.angle}</p>
+                  {item.evidenceQuote && (
+                    <p className="mt-2 border-l-2 border-border pl-3 text-xs italic text-muted-foreground">
+                      Analysis excerpt: {item.evidenceQuote}
+                    </p>
+                  )}
                   <EvidenceBasis basis={item.evidenceBasis} />
                   <Evidence ids={item.storyIds} />
                 </CardContent>
