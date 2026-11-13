@@ -99,7 +99,8 @@ export interface HnReport {
   trends: Array<{ title: string; description: string; storyIds: number[]; evidenceBasis?: FindingEvidenceBasis; evidenceProvenance?: FindingEvidenceProvenance; topicKey?: string; trendKey?: string }>;
   technologies: Array<{ name: string; signal: string; storyIds: number[]; evidenceBasis?: FindingEvidenceBasis; evidenceProvenance?: FindingEvidenceProvenance }>;
   developerProblems: Array<{ problem: string; detail: string; storyIds: number[]; evidenceBasis?: FindingEvidenceBasis; evidenceProvenance?: FindingEvidenceProvenance }>;
-  contentOpportunities: Array<{ title: string; angle: string; storyIds: number[]; evidenceBasis?: FindingEvidenceBasis; evidenceProvenance?: FindingEvidenceProvenance }>;
+  contentOpportunities: Array<{ title: string; angle: string; evidenceQuote?: string; storyIds: number[]; evidenceBasis?: FindingEvidenceBasis; evidenceProvenance?: FindingEvidenceProvenance }>;
+  opportunityDiagnostics?: { synthesisProposals: number; rejected: number; recovered: number };
 }
 
 export interface SourceEnrichmentWarning {
@@ -108,6 +109,13 @@ export interface SourceEnrichmentWarning {
 }
 
 export interface ResearchStats {
+  triageBatches?: number;
+  triageNominations?: number;
+  opportunityProposals?: number;
+  opportunityRejected?: number;
+  opportunityRecovered?: number;
+  opportunityPublished?: number;
+  editorialSnapshotMode?: 'editorial' | 'fallback';
   candidateStories: number;
   selectedStories: number;
   sourceContributions?: Partial<

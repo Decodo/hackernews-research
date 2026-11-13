@@ -129,7 +129,10 @@ export const exportAsMarkdown = (result: ResearchResult) => {
 
   if (report.contentOpportunities.length) {
     lines.push('## Content opportunities', '');
-    for (const item of report.contentOpportunities) lines.push(`- **${item.title}:** ${item.angle} _[${findingEvidenceLabel(item.evidenceBasis)}]_`);
+    for (const item of report.contentOpportunities) {
+      lines.push(`- **${item.title}:** ${item.angle} _[${findingEvidenceLabel(item.evidenceBasis)}]_`);
+      if (item.evidenceQuote) lines.push(`  - **Analysis excerpt:** ${item.evidenceQuote}`);
+    }
     lines.push('');
   }
 

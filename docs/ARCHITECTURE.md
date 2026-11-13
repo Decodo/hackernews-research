@@ -1,6 +1,15 @@
 # Hacker News Intelligence architecture
 
-The current version uses Hacker News as the discovery and discussion layer, Decodo Web Data API as the external-web enrichment layer, and an LLM in three roles: low-cost triage, isolated per-story analysis, and concise cross-story synthesis.
+The current version uses Hacker News as the discovery and discussion layer, Decodo Web Data API as the external-web enrichment layer, and an LLM in four roles: low-cost triage, isolated per-story analysis, cross-story synthesis, and evidence-checked editorial summarization.
+
+## Research quality upgrades
+
+- Triage uses bounded mixed-source batches (25 candidates in Deep mode) and a global shortlist, with explicit limits on weak, discussion-free leads.
+- Independent story topic keys must match the story subject. Shared generic issue labels cannot by themselves establish recurring themes.
+- Synthesized findings are reconciled with their claimed provenance. Content opportunities need concrete evidence excerpts, and missed questions can be recovered from original comments or Ask HN submissions.
+- A final editorial pass generates a short evidence-checked overview. If its claims cannot be validated, a conservative fallback is used.
+- Diagnostics record triage batches/nominations, opportunity acceptance and recovery, and the editorial summary mode.
+- Public CI runs the full backend regression suite, retaining Web Data API tests alongside research-quality tests.
 
 ## Pipeline
 
